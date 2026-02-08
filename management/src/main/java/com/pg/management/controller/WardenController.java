@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/wardens")
-
 public class WardenController {
 
     private final WardenService wardenService;
@@ -29,7 +28,7 @@ public class WardenController {
         return wardenService.createWarden(warden);
     }
 
-    // ✅ THIS IS THE ONLY ASSIGN ROOM METHOD
+    // ✅ ASSIGN ROOM
     @PutMapping("/{wardenId}/assign-room")
     public Student assignRoomToStudent(
             @PathVariable Long wardenId,
@@ -41,6 +40,7 @@ public class WardenController {
                 request.getRoomNumber()
         );
     }
+
     // ✅ DEASSIGN ROOM
     @PutMapping("/{wardenId}/deassign-room")
     public Student deassignRoomFromStudent(
@@ -53,4 +53,12 @@ public class WardenController {
         );
     }
 
+    // ✅ DELETE STUDENT (warden authority)
+    @DeleteMapping("/{wardenId}/students/{studentId}")
+    public void deleteStudent(
+            @PathVariable Long wardenId,
+            @PathVariable Long studentId
+    ) {
+        wardenService.deleteStudent(wardenId, studentId);
+    }
 }
