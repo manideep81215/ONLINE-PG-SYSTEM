@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./FeeStatus.css";
 
 function FeeStatus() {
   const { studentId } = useParams();
-  const navigate = useNavigate();
 
   const [fee, setFee] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [paying, setPaying] = useState(false);
 
-  // Load current month fee
+  // =============================
+  // LOAD CURRENT MONTH FEE
+  // =============================
   useEffect(() => {
     axios
       .get(`/fees/student/${studentId}/current`)
@@ -24,9 +26,28 @@ function FeeStatus() {
       });
   }, [studentId]);
 
-  const handlePayRedirect = () => {
-    // Redirect to payment page
-    navigate(`/payment/${studentId}/${fee.id}`);
+  // =============================
+  // MARK FEE AS PAID (NO REDIRECT)
+  // =============================
+  const handlePayNow = async () => {
+    try {
+      setPaying(true);
+
+      // 🔴 BACKEND CALL TO MARK PAID
+      await axios.put(`/fees/${fee.id}/mark-paid`);
+
+      // ✅ UPDATE UI IMMEDIATELY
+      setFee((prev) => ({
+        ...prev,
+        status: "PAID",
+        paidAt: new Date().toISOString(),
+      }));
+    } catch (err) {
+      console.error("Payment failed", err);
+      alert("Failed to update fee status");
+    } finally {
+      setPaying(false);
+    }
   };
 
   if (loading) {
@@ -57,7 +78,7 @@ function FeeStatus() {
               fee.status === "PAID" ? "status-paid" : "status-due"
             }
           >
-            {fee.status}
+            {fee.status === "PAID" ? "PAID ✅" : "DUE"}
           </span>
         </p>
 
@@ -68,19 +89,20 @@ function FeeStatus() {
           </p>
         )}
 
-        {/* 🔴 Redirect to payment page */}
+        {/* ✅ PAY NOW (NO REDIRECT) */}
         {fee.status === "DUE" && (
           <button
             className="pay-btn"
-            onClick={handlePayRedirect}
+            onClick={handlePayNow}
+            disabled={paying}
           >
-            Pay Now
+            {paying ? "Processing..." : "Pay Now"}
           </button>
         )}
 
         {fee.status === "PAID" && (
           <p className="paid-success">
-            ✅ Fee paid successfully
+            ✅ Fee paid 
           </p>
         )}
       </div>
