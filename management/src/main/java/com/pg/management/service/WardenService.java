@@ -127,4 +127,27 @@ public class WardenService {
         return studentRepo.save(student);
     }
 
+    public void deleteStudent(Long wardenId, Long studentId) {
+
+    // 1. Validate warden exists
+    Warden warden = wardenRepo.findById(wardenId)
+            .orElseThrow(() -> new RuntimeException("Warden not found"));
+
+    // 2. Fetch student
+    Student student = studentRepo.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+
+    // 3. If student has a room, update room occupancy
+    Room room = student.getRoom();
+    if (room != null) {
+        room.setOccupiedBeds(room.getOccupiedBeds() - 1);
+        student.setRoom(null);
+        roomRepo.save(room);
+    }
+
+    // 4. Delete student
+    studentRepo.delete(student);
+}
+
+
 }
