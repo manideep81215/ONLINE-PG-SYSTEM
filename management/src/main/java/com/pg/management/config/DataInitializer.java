@@ -22,10 +22,10 @@ public class DataInitializer {
            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
            Warden warden = new Warden();
-           warden.setName("Madhu");
-           warden.setEmail("Madhu@gmail.com");
-           warden.setPassword(encoder.encode("Madhu"));
-           warden.setBlockAssigned("B");
+           warden.setName("rajesh");
+           warden.setEmail("rajesh@gmail.com");
+           warden.setPassword(encoder.encode("vada"));
+           warden.setBlockAssigned("A");
 
            wardenRepository.save(warden);
 
