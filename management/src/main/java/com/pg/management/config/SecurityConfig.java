@@ -26,15 +26,18 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
-            "https://online-pg-system-2ok3c7v53-manideeps-projects-539fb74d.vercel.app"
+        
+        // Allow all Vercel deployments and localhost
+        config.setAllowedOriginPatterns(List.of(
+            "https://*.vercel.app",
+            "http://localhost:*"
         ));
+        
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return source;
