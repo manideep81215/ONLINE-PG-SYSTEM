@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "../../api/axios";
 import "./Complaint.css";
 
 function Complaint() {
@@ -29,23 +30,13 @@ function Complaint() {
     }
 
     try {
-      const response = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/complaints', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit complaint");
-      }
+      const response = await axios.post("/complaints", formData);
 
       setMessage("Complaint submitted successfully");
       setFormData({ type: "", subject: "", description: "" });
     } catch (err) {
       console.error(err);
-      setError("Something went wrong");
+      setError(err.response?.data?.message || "Something went wrong");
     }
   };
 
