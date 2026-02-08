@@ -12,7 +12,7 @@ const StudentProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`/students/${studentId}`)  // ✅ FIXED: Added parentheses and backticks
+      .get(`/students/${studentId}`)  // ✅ FIXED: Proper parentheses
       .then((res) => {
         setStudent(res.data);
         setRoomNumber(res.data.room?.roomNumber || "");
@@ -41,9 +41,8 @@ const StudentProfile = () => {
       return;
     }
 
-    
-     axios
-      .put(`/wardens/${wardenId}/assign-room`, {
+    axios
+      .put(`/wardens/${wardenId}/assign-room`, {  // ✅ FIXED: Proper parentheses
         studentId: Number(studentId),
         roomNumber: Number(roomNumber),
       })
@@ -56,6 +55,8 @@ const StudentProfile = () => {
         console.error(err.response?.data || err.message);
         alert("Failed to assign room");
       });
+  };  // ✅ ADDED: Missing closing bracket
+
   const handleDeassignRoom = () => {
     const wardenId = getWardenId();
     if (!wardenId) {
@@ -64,7 +65,7 @@ const StudentProfile = () => {
     }
 
     axios
-      .put(`/wardens/${wardenId}/deassign-room`, {  // ✅ FIXED
+      .put(`/wardens/${wardenId}/deassign-room`, {  // ✅ FIXED: Proper parentheses
         studentId: Number(studentId),
       })
       .then((res) => {
