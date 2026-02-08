@@ -40,13 +40,43 @@ public class StudentService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public Student createStudent(Student student) {
-        student.setActive(true);
 
-        // ✅ HASH PASSWORD
-        student.setPassword(passwordEncoder.encode(student.getPassword()));
-
-        return studentRepo.save(student);
+    // 🔴 BASIC VALIDATION
+    if (student.getName() == null || student.getName().isBlank()) {
+        throw new RuntimeException("Name is required");
     }
+
+    if (student.getEmail() == null || student.getEmail().isBlank()) {
+        throw new RuntimeException("Email is required");
+    }
+
+    if (student.getAadharNumber() == null) {
+        throw new RuntimeException("Aadhar number is required");
+    }
+
+    if (student.getPassword() == null || student.getPassword().isBlank()) {
+        throw new RuntimeException("Password is required");
+    }
+
+    // 🔴 UNIQUE CHECKS (PREVENT DB CRASH)
+    if (studentRepo.existsByEmail(student.getEmail())) {
+        throw new RuntimeException("Email already registered");
+    }
+
+    if (studentRepo.existsByAadharNumber(student.getAadharNumber())) {
+        throw new RuntimeException("Aadhar already registered");
+    }
+
+    // ✅ HASH PASSWORD
+    student.setPassword(passwordEncoder.encode(student.getPassword()));
+
+    // DEFAULTS
+    student.setActive(true);
+    student.setRoom(null);
+
+    return studentRepo.save(student);
+}
+
 
 
     public Student updateStudent(Long id, Student updated) {
