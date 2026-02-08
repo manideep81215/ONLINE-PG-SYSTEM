@@ -8,9 +8,13 @@ import "./StudentDashboard.css";
 function StudentDashboard() {
   const [notices, setNotices] = useState([]);
   const [room, setRoom] = useState(null);
+  const [roomLoading, setRoomLoading] = useState(true);
   const [roomError, setRoomError] = useState("");
   const { studentId } = useParams();
 
+  // =============================
+  // LOAD NOTICES
+  // =============================
   const loadNotices = () => {
     axios
       .get("/notices")
@@ -20,13 +24,24 @@ function StudentDashboard() {
       );
   };
 
+  // =============================
+  // LOAD ROOM
+  // =============================
   const loadRoomDetails = async () => {
     try {
       const data = await getRoomByStudentId(studentId);
-      setRoom(data);
+
+      // 👇 IMPORTANT: room not assigned
+      if (!data) {
+        setRoom(null);
+      } else {
+        setRoom(data);
+      }
     } catch (error) {
       console.error("ROOM FETCH ERROR:", error);
       setRoomError("Room details not available");
+    } finally {
+      setRoomLoading(false); // 👈 always stop loading
     }
   };
 
@@ -37,7 +52,7 @@ function StudentDashboard() {
     window.addEventListener("focus", loadNotices);
     return () =>
       window.removeEventListener("focus", loadNotices);
-  }, []);
+  }, [studentId]);
 
   return (
     <div className="student-dashboard">
@@ -52,7 +67,11 @@ function StudentDashboard() {
         <h2>My Room</h2>
 
         <div className="room-card">
-          {room ? (
+          {roomLoading ? (
+            <p className="info-text">Loading room details...</p>
+          ) : roomError ? (
+            <p className="error-text">{roomError}</p>
+          ) : room ? (
             <>
               <div className="detail-row">
                 <span>Block</span>
@@ -89,7 +108,7 @@ function StudentDashboard() {
             </>
           ) : (
             <p className="info-text">
-              {roomError || "Loading room details..."}
+              No room assigned yet. Please contact the warden.
             </p>
           )}
         </div>
