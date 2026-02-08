@@ -41,8 +41,9 @@ const StudentProfile = () => {
       return;
     }
 
-    axios
-      .put(`/wardens/${wardenId}/assign-room`, {  // ✅ FIXED
+    
+     axios
+      .put(`/wardens/${wardenId}/assign-room`, {
         studentId: Number(studentId),
         roomNumber: Number(roomNumber),
       })
@@ -55,8 +56,6 @@ const StudentProfile = () => {
         console.error(err.response?.data || err.message);
         alert("Failed to assign room");
       });
-  };
-
   const handleDeassignRoom = () => {
     const wardenId = getWardenId();
     if (!wardenId) {
