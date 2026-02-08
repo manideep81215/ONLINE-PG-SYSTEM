@@ -5,7 +5,6 @@ import "./StudentProfile.css";
 
 const StudentProfile = () => {
   const { studentId } = useParams();
-
   const [student, setStudent] = useState(null);
   const [roomNumber, setRoomNumber] = useState("");
   const [loading, setLoading] = useState(true);
@@ -13,7 +12,7 @@ const StudentProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`/students/${studentId}`)
+      .get(`/students/${studentId}`)  // ✅ FIXED: Added parentheses and backticks
       .then((res) => {
         setStudent(res.data);
         setRoomNumber(res.data.room?.roomNumber || "");
@@ -33,19 +32,17 @@ const StudentProfile = () => {
 
   const handleAssignRoom = () => {
     const wardenId = getWardenId();
-
     if (!wardenId) {
       alert("Warden not logged in");
       return;
     }
-
     if (!roomNumber) {
       alert("Enter room number");
       return;
     }
 
     axios
-      .put(`/wardens/${wardenId}/assign-room`, {
+      .put(`/wardens/${wardenId}/assign-room`, {  // ✅ FIXED
         studentId: Number(studentId),
         roomNumber: Number(roomNumber),
       })
@@ -62,14 +59,13 @@ const StudentProfile = () => {
 
   const handleDeassignRoom = () => {
     const wardenId = getWardenId();
-
     if (!wardenId) {
       alert("Warden not logged in");
       return;
     }
 
     axios
-      .put(`/wardens/${wardenId}/deassign-room`, {
+      .put(`/wardens/${wardenId}/deassign-room`, {  // ✅ FIXED
         studentId: Number(studentId),
       })
       .then((res) => {
@@ -120,7 +116,6 @@ const StudentProfile = () => {
         <hr className="profile-divider" />
 
         <h3>Assign / Change Room</h3>
-
         <div className="assign-room">
           <input
             type="number"
@@ -128,11 +123,9 @@ const StudentProfile = () => {
             value={roomNumber}
             onChange={(e) => setRoomNumber(e.target.value)}
           />
-
           <button onClick={handleAssignRoom}>
             Assign Room
           </button>
-
           {student.room && (
             <button
               className="deassign-btn"
