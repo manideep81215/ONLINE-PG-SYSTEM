@@ -1,11 +1,10 @@
+import axios from "../api/axios";
+
 export const getRoomByStudentId = async (studentId) => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/api/students/${studentId}/room`
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch room details");
+  try {
+    const response = await axios.get(`/students/${studentId}/room`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to fetch room details");
   }
-
-  return response.json();
 };
