@@ -23,58 +23,63 @@ function StudentRegister() {
     });
   };
 
-  const handleRegister = () => {
-    const {
-      name,
-      email,
-      aadharNumber,
-      phone,
-      password,
-      confirmPassword,
-    } = formData;
+ const handleRegister = () => {
+  const {
+    name,
+    email,
+    aadharNumber,
+    phone,
+    password,
+    confirmPassword,
+  } = formData;
 
-    // =============================
-    // FRONTEND VALIDATION
-    // =============================
-    if (!name || !email || !aadharNumber || !password || !confirmPassword) {
-      alert("All fields are required");
-      return;
-    }
+  // ===== FRONTEND VALIDATION =====
+  if (
+    !name.trim() ||
+    !email.trim() ||
+    !aadharNumber.trim() ||
+    !password ||
+    !confirmPassword
+  ) {
+    alert("All fields are required");
+    return;
+  }
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  if (password !== confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
 
-    // Aadhar must be numeric
-    if (isNaN(Number(aadharNumber))) {
-      alert("Aadhar number must be numeric");
-      return;
-    }
+  if (!/^\d{12}$/.test(aadharNumber)) {
+    alert("Aadhar number must be exactly 12 digits");
+    return;
+  }
 
-    // =============================
-    // API CALL
-    // =============================
-    axios
-      .post("/students", {
-        name: name.trim(),
-        email: email.trim(),
-        aadharNumber: Number(aadharNumber), // ✅ SAFE NOW
-        phone: phone.trim(),
-        password: password,
-      })
-      .then(() => {
-        alert("Student registered successfully");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error(err.response?.data || err.message);
-        alert(
-          err.response?.data?.message ||
-            "Registration failed. Email or Aadhar may already exist."
-        );
-      });
+  const payload = {
+    name: name.trim(),
+    email: email.trim(),
+    aadharNumber: parseInt(aadharNumber, 10), // ✅ GUARANTEED NUMBER
+    phone: phone.trim(),
+    password: password,
   };
+
+  console.log("REGISTER PAYLOAD 👉", payload); // 👈 DEBUG (IMPORTANT)
+
+  axios
+    .post("/students", payload)
+    .then(() => {
+      alert("Student registered successfully");
+      navigate("/");
+    })
+    .catch((err) => {
+      console.error("REGISTER ERROR 👉", err.response?.data || err.message);
+      alert(
+        err.response?.data?.message ||
+          "Registration failed. Email or Aadhar already exists."
+      );
+    });
+};
+
 
   return (
     <AuthLayout>
