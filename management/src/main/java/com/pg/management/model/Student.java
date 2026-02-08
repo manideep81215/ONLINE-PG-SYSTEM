@@ -1,6 +1,6 @@
 package com.pg.management.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,12 +22,12 @@ public class Student {
 
     private String phone;
 
-    // 🔒 NEVER expose password in API responses
+    // ✅ FIX: allow password in REQUEST, hide in RESPONSE
     @Column(nullable = false)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    // ✅ FIX: EAGER fetch to avoid LazyInitializationException
+    // ✅ EAGER fetch to avoid LazyInitializationException
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
@@ -79,6 +79,7 @@ public class Student {
         this.phone = phone;
     }
 
+    // password is WRITE_ONLY (no getter needed in responses)
     public String getPassword() {
         return password;
     }
