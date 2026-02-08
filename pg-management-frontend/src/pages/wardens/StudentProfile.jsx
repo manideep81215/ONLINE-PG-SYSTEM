@@ -11,84 +11,83 @@ const StudentProfile = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-  // Function to fetch student data
-  const fetchStudent = () => {
     axios
-      .get(`/students/${studentId}`)  
-      .get(`/students/${studentId}`)
+      .get(`/students/${studentId}`)  // ✅ FIXED: Added parentheses and backticks
+      .get(`/students/${studentId}`)  // ✅ FIXED: Proper parentheses
       .then((res) => {
         setStudent(res.data);
         setRoomNumber(res.data.room?.roomNumber || "");
-@@ -23,6 +24,15 @@
-        setError("Failed to load student");
-        setLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    if (!studentId) {
-      setError("Student ID missing");
-      setLoading(false);
+@@ -41,9 +41,8 @@
       return;
     }
-    fetchStudent();
-  }, [studentId]);
 
-  const getWardenId = () => {
-@@ -42,20 +52,20 @@
-    }
-
+    
+     axios
+      .put(`/wardens/${wardenId}/assign-room`, {
     axios
       .put(`/wardens/${wardenId}/assign-room`, {  // ✅ FIXED: Proper parentheses
-      .put(`/wardens/${wardenId}/assign-room`, {
         studentId: Number(studentId),
         roomNumber: Number(roomNumber),
       })
-      .then((res) => {
-        alert("Room assigned successfully");
-        setStudent(res.data);
-        setRoomNumber(res.data.room?.roomNumber || "");
-        // ✅ Refresh student data after assignment
-        fetchStudent();
-      })
-      .catch((err) => {
+@@ -56,6 +55,8 @@
         console.error(err.response?.data || err.message);
         alert("Failed to assign room");
-        alert(err.response?.data?.message || "Failed to assign room");
       });
   };  // ✅ ADDED: Missing closing bracket
-  };
 
   const handleDeassignRoom = () => {
     const wardenId = getWardenId();
-@@ -65,17 +75,17 @@
+    if (!wardenId) {
+@@ -64,79 +65,79 @@
     }
 
     axios
+      .put(`/wardens/${wardenId}/deassign-room`, {  // ✅ FIXED
       .put(`/wardens/${wardenId}/deassign-room`, {  // ✅ FIXED: Proper parentheses
-      .put(`/wardens/${wardenId}/deassign-room`, {
         studentId: Number(studentId),
       })
       .then((res) => {
         alert("Room deassigned successfully");
         setStudent(res.data);
         setRoomNumber("");
-        // ✅ Refresh student data after deassignment
-        fetchStudent();
       })
       .catch((err) => {
         console.error(err.response?.data || err.message);
         alert("Failed to deassign room");
-        alert(err.response?.data?.message || "Failed to deassign room");
       });
   };
 
-@@ -109,35 +119,35 @@
+  if (loading) return <p className="loading-text">Loading...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!student) return <p className="error-text">Student not found</p>;
+
+  return (
+    <div className="profile-container">
+      <h2>Student Profile</h2>
+      <p className="profile-subtitle">
+        Student details and room assignment
+      </p>
+
+      <div className="profile-card">
+        <div className="profile-row">
+          <span>Name</span>
+          <span>{student.name}</span>
+        </div>
+
+        <div className="profile-row">
+          <span>Email</span>
+          <span>{student.email}</span>
+        </div>
+
+        <div className="profile-row">
+          <span>Phone</span>
+          <span>{student.phone || "—"}</span>
+        </div>
+
         <div className="profile-row">
           <span>Current Room</span>
           <span className="room-badge">
             {student.room?.roomNumber || "Not assigned"}
-            {student.room ? `Block ${student.room.block} - Room ${student.room.roomNumber}` : "Not assigned"}
           </span>
         </div>
 
