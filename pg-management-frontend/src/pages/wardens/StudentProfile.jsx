@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const storedStudentId = localStorage.getItem("studentId");
   const studentId = params.studentId || storedStudentId;
 
@@ -100,6 +102,32 @@ const StudentProfile = () => {
       });
   };
 
+  const handleDeleteStudent = () => {
+    const wardenId = getWardenId();
+
+    if (!wardenId) {
+      alert("Warden not logged in");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?\nThis action cannot be undone."
+    );
+
+    if (!confirmDelete) return;
+
+    axios
+      .delete(`/wardens/${wardenId}/students/${studentId}`)
+      .then(() => {
+        alert("Student deleted successfully");
+        navigate("/warden/dashboard");
+      })
+      .catch((err) => {
+        console.error(err.response?.data || err.message);
+        alert(err.response?.data?.message || "Failed to delete student");
+      });
+  };
+
   // =============================
   // RENDER
   // =============================
@@ -142,6 +170,7 @@ const StudentProfile = () => {
         <hr className="profile-divider" />
 
         <h3>Assign / Change Room</h3>
+
         <div className="assign-room">
           <input
             type="number"
@@ -150,17 +179,22 @@ const StudentProfile = () => {
             onChange={(e) => setRoomNumber(e.target.value)}
           />
 
-          <button onClick={handleAssignRoom}>Assign Room</button>
+          <button className="assign-btn" onClick={handleAssignRoom}>
+            Assign Room
+          </button>
 
           {student.room && (
-            <button
-              className="deassign-btn"
-              onClick={handleDeassignRoom}
-            >
+            <button className="deassign-btn" onClick={handleDeassignRoom}>
               Deassign Room
             </button>
           )}
         </div>
+
+        <hr className="profile-divider" />
+
+        <button className="delete-btn" onClick={handleDeleteStudent}>
+          Delete Student
+        </button>
       </div>
     </div>
   );
