@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "../../api/axios";
 import "./Profile.css";
 
 function Profile() {
@@ -18,18 +19,14 @@ function Profile() {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/students/${studentId}`)
+    axios.get(`/students/${studentId}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to load profile");
-        return res.json();
-      })
-      .then((data) => {
-        setStudent(data);
-        setFormData(data);
+        setStudent(res.data);
+        setFormData(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err.response?.data?.message || "Failed to load profile");
         setLoading(false);
       });
   }, [studentId]);
@@ -42,20 +39,12 @@ function Profile() {
   };
 
   const handleUpdate = () => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/students/${studentId}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
+    axios.put(`/students/${studentId}`, formData)
       .then((res) => {
-        if (!res.ok) throw new Error("Update failed");
-        return res.json();
-      })
-      .then((updated) => {
-        setStudent(updated);
+        setStudent(res.data);
         setEditMode(false);
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err.response?.data?.message || "Update failed"));
   };
 
   if (loading) return <p className="loading-text">Loading profile...</p>;
