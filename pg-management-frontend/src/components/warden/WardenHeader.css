@@ -1,0 +1,96 @@
+.warden-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+ background: linear-gradient(to right, #5F1EBE, #3C91FF);
+  color: white;
+}
+
+.warden-title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.notice-btn {
+    background-color: #3e0719;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: #f52578;
+}
+
+.notice-btn:hover {
+  transform: scale(1.1);
+
+}
+.warden-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.warden-info {
+  font-size: 14px;
+  color: #e8efff;
+  margin-top: 2px;
+}
+.warden-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #145bd8;
+  color: white;
+}
+
+/* LEFT */
+.warden-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.warden-title {
+  cursor: pointer;
+}
+
+/* RIGHT */
+.warden-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon buttons (notice / back) */
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  border: #ffffff;
+  border-radius: 6px;
+}
+
+.icon-btn:hover {
+  opacity: 0.85;
+}
+
+/* Logout button */
+.logout-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #145bd8;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.logout-btn:hover {
+  background-color: #eef3ff;
+}
+

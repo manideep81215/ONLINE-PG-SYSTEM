@@ -1,0 +1,87 @@
+.rooms-container {
+  padding: 32px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rooms-container h2 {
+  font-size: 28px;
+  margin-bottom: 6px; display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rooms-subtitle {
+  color: #555;
+  margin-bottom: 20px; display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rooms-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.rooms-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header */
+.rooms-table thead {
+  background: #145bd8;
+}
+
+.rooms-table th {
+  color: #ffffff;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Body */
+.rooms-table td {
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #222;
+}
+
+/* Zebra rows */
+.rooms-table tbody tr:nth-child(even) {
+  background-color: #f6f9ff;
+}
+
+/* Hover */
+.rooms-table tbody tr:hover {
+  background-color: #eef3ff;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-badge.available {
+  background-color: #e6f7ec;
+  color: #1a7f37;
+}
+
+.status-badge.full {
+  background-color: #fdecea;
+  color: #b42318;
+}
+
+/* Shared states */
+.loading-text,
+.error-text {
+  padding: 32px;
+  font-size: 16px;
+}

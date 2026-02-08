@@ -1,0 +1,124 @@
+.complaints-container {
+  padding: 32px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.complaints-container h2 {
+  font-size: 28px;
+  margin-bottom: 6px;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complaints-subtitle {
+  color: #555;
+  margin-bottom: 20px;
+   display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+
+.complaints-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.complaints-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.complaints-table thead {
+  background: #145bd8;
+}
+
+.complaints-table th {
+  color: #ffffff;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.complaints-table td {
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #222;
+  vertical-align: top;
+}
+
+.complaints-table tbody tr:nth-child(even) {
+  background-color: #f6f9ff;
+}
+
+.complaints-table tbody tr:hover {
+  background-color: #eef3ff;
+}
+
+.description-cell {
+  max-width: 320px;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.pending {
+  background-color: #fff4e5;
+  color: #92400e;
+}
+
+.status-badge.in_progress {
+  background-color: #eef3ff;
+  color: #145bd8;
+}
+
+.status-badge.resolved {
+  background-color: #e6f7ec;
+  color: #1a7f37;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: white;
+}
+
+.btn.in-progress {
+  background-color: #145bd8;
+}
+
+.btn.resolve {
+  background-color: #1a7f37;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Shared states */
+.loading-text,
+.error-text {
+  padding: 32px;
+  font-size: 16px;
+}

@@ -1,0 +1,11 @@
+.login-cards-container {
+  display: flex;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .login-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

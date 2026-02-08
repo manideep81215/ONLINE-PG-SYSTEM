@@ -1,0 +1,46 @@
+.fee-status-container {
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fee-card {
+  background: #ffffff;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+.status-paid {
+  color: green;
+  font-weight: 600;
+}
+
+.status-due {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.pay-btn {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background-color: #0f5fdc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.paid-success {
+  margin-top: 12px;
+  color: green;
+  font-weight: 500;
+}

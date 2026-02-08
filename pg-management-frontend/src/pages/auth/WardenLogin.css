@@ -1,0 +1,53 @@
+.login-card {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  width: 90%;
+  max-width: 360px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: fit-content;
+     margin-right: 10px;
+}
+
+
+
+.card-title {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.input {
+  width: 100%;
+  padding: 9px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 9px;
+  background-color: #0f5fdc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.warden-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+}
+.login-card:hover {
+  transform: translateY(-2px);
+  transition: 0.2s ease;
+}
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 8px;
+}

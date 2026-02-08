@@ -1,0 +1,150 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "../../api/axios";
+import "./StudentProfile.css";
+
+const StudentProfile = () => {
+  const { studentId } = useParams();
+
+  const [student, setStudent] = useState(null);
+  const [roomNumber, setRoomNumber] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`/students/${studentId}`)
+      .then((res) => {
+        setStudent(res.data);
+        setRoomNumber(res.data.room?.roomNumber || "");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to load student");
+        setLoading(false);
+      });
+  }, [studentId]);
+
+  const getWardenId = () => {
+    const warden = JSON.parse(localStorage.getItem("warden"));
+    return warden?.wardenId;
+  };
+
+  const handleAssignRoom = () => {
+    const wardenId = getWardenId();
+
+    if (!wardenId) {
+      alert("Warden not logged in");
+      return;
+    }
+
+    if (!roomNumber) {
+      alert("Enter room number");
+      return;
+    }
+
+    axios
+      .put(`/wardens/${wardenId}/assign-room`, {
+        studentId: Number(studentId),
+        roomNumber: Number(roomNumber),
+      })
+      .then((res) => {
+        alert("Room assigned successfully");
+        setStudent(res.data);
+        setRoomNumber(res.data.room?.roomNumber || "");
+      })
+      .catch((err) => {
+        console.error(err.response?.data || err.message);
+        alert("Failed to assign room");
+      });
+  };
+
+  const handleDeassignRoom = () => {
+    const wardenId = getWardenId();
+
+    if (!wardenId) {
+      alert("Warden not logged in");
+      return;
+    }
+
+    axios
+      .put(`/wardens/${wardenId}/deassign-room`, {
+        studentId: Number(studentId),
+      })
+      .then((res) => {
+        alert("Room deassigned successfully");
+        setStudent(res.data);
+        setRoomNumber("");
+      })
+      .catch((err) => {
+        console.error(err.response?.data || err.message);
+        alert("Failed to deassign room");
+      });
+  };
+
+  if (loading) return <p className="loading-text">Loading...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!student) return <p className="error-text">Student not found</p>;
+
+  return (
+    <div className="profile-container">
+      <h2>Student Profile</h2>
+      <p className="profile-subtitle">
+        Student details and room assignment
+      </p>
+
+      <div className="profile-card">
+        <div className="profile-row">
+          <span>Name</span>
+          <span>{student.name}</span>
+        </div>
+
+        <div className="profile-row">
+          <span>Email</span>
+          <span>{student.email}</span>
+        </div>
+
+        <div className="profile-row">
+          <span>Phone</span>
+          <span>{student.phone || "—"}</span>
+        </div>
+
+        <div className="profile-row">
+          <span>Current Room</span>
+          <span className="room-badge">
+            {student.room?.roomNumber || "Not assigned"}
+          </span>
+        </div>
+
+        <hr className="profile-divider" />
+
+        <h3>Assign / Change Room</h3>
+
+        <div className="assign-room">
+          <input
+            type="number"
+            placeholder="Room Number"
+            value={roomNumber}
+            onChange={(e) => setRoomNumber(e.target.value)}
+          />
+
+          <button onClick={handleAssignRoom}>
+            Assign Room
+          </button>
+
+          {student.room && (
+            <button
+              className="deassign-btn"
+              onClick={handleDeassignRoom}
+            >
+              Deassign Room
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StudentProfile;

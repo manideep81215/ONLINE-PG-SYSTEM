@@ -1,0 +1,62 @@
+.notice-board {
+  background-color: #ffffff;
+  margin: 24px 32px;
+  padding: 20px;
+  border-radius: 10px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.notice-title {
+  margin-bottom: 16px;
+  color: #0f5fdc;
+}
+
+.notice-card {
+  padding: 14px 16px;
+  border-left: 4px solid #0f5fdc;
+  background-color: #f9fbff;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.notice-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.notice-header h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.notice-header span {
+  font-size: 12px;
+  color: #666;
+}
+
+.no-notice {
+  color: #777;
+  font-style: italic;
+}
+/* ===== Scroll behavior for Notice Board ===== */
+.notice-list {
+  max-height: 260px;     /* height for ~2 notice cards */
+  overflow-y: auto;
+  padding-right: 6px;   /* prevent scrollbar overlap */
+}
+
+/* Optional: subtle scrollbar that matches theme */
+.notice-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notice-list::-webkit-scrollbar-thumb {
+  background-color: #c3cbe0;
+  border-radius: 4px;
+}
+
+.notice-list::-webkit-scrollbar-track {
+  background: transparent;
+}

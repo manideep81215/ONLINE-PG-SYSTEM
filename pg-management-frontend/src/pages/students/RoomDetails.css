@@ -1,0 +1,78 @@
+.room-details-container {
+  padding: 32px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-details-container h2 {
+  font-size: 28px;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.room-details-subtitle {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.room-details-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Info rows */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span:first-child {
+  color: #555;
+  font-weight: 500;
+}
+
+.detail-row span:last-child {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-badge.available {
+  background-color: #e6f7ec;
+  color: #1a7f37;
+}
+
+.status-badge.full {
+  background-color: #fdecea;
+  color: #b42318;
+}
+
+/* Shared states */
+.loading-text,
+.error-text {
+  padding: 32px;
+  font-size: 16px;
+  width: 100%;
+}

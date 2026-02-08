@@ -1,0 +1,61 @@
+/* Page background handled by AuthLayout */
+
+.register-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  width: 90%;
+  max-width: 420px;
+
+  padding: 28px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: fit-content;
+}
+
+/* Hover effect (same feel as login cards) */
+.register-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+}
+
+/* Title */
+.register-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Input fields */
+.register-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Register button */
+.register-btn {
+  width: 100%;
+  padding: 10px;
+
+  background-color: #0f5fdc;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Laptop / Desktop sizing */
+@media (min-width: 1024px) {
+  .register-card {
+    width: 440px;
+    padding: 32px;
+  }
+}

@@ -1,0 +1,86 @@
+.room-section {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.room-card {
+  background-color: white;
+  padding: 22px;
+  width: 360px;
+
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.student-dashboard {
+  padding: 32px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sections */
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.dashboard-section h2 {
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+
+/* Room card */
+.room-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  max-width: 500px;
+}
+
+/* Info rows */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span:first-child {
+  color: #555;
+  font-weight: 500;
+}
+
+.detail-row span:last-child {
+  font-weight: 600;
+  color: #222;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-badge.available {
+  background-color: #e6f7ec;
+  color: #1a7f37;
+}
+
+.status-badge.full {
+  background-color: #fdecea;
+  color: #b42318;
+}
+
+/* Info text */
+.info-text {
+  color: #555;
+  font-size: 15px;
+}

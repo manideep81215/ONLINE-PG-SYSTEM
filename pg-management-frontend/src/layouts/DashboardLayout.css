@@ -1,0 +1,13 @@
+.dashboard-wrapper {
+  min-height: 100vh;
+  background-color: #f4f6f8;
+}
+
+.dashboard-body {
+  display: flex;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 32px;
+}

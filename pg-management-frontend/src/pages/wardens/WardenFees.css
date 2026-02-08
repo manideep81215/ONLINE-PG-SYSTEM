@@ -1,0 +1,58 @@
+.warden-fees-container {
+  padding: 24px 32px;
+}
+
+.fees-subtitle {
+  margin-bottom: 16px;
+  color: #555;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.h2{
+     display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fees-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.fees-table th,
+.fees-table td {
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.fees-table th {
+  background-color: #0f5fdc;
+  color: white;
+  font-weight: 500;
+}
+
+.fees-table tr:nth-child(even) {
+  background-color: #f6f8ff;
+}
+
+.status-paid {
+  color: green;
+  font-weight: 600;
+}
+
+.status-due {
+  color: #d32f2f;
+  font-weight: 600;
+}
+.student-fee-block {
+  margin-bottom: 32px;
+}
+
+.student-fee-block h3 {
+  margin-bottom: 10px;
+  color: #0f5fdc;
+}

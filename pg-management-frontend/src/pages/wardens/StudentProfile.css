@@ -1,0 +1,101 @@
+.profile-container {
+  padding: 32px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-container h2 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.profile-subtitle {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.profile-row span:first-child {
+  color: #555;
+  font-weight: 500;
+}
+
+.profile-row span:last-child {
+  font-weight: 600;
+  color: #222;
+}
+
+.room-badge {
+  background-color: #eef3ff;
+  color: #145bd8;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.profile-divider {
+  margin: 24px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.assign-room {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.assign-room input {
+  padding: 8px 12px;
+  width: 200px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.assign-room input:focus {
+  outline: none;
+  border-color: #145bd8;
+}
+
+.assign-room button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #145bd8;
+  color: white;
+  font-size: 14px;
+}
+
+.assign-room button:hover {
+  background-color: #0f49ad;
+}
+
+/* Reused states */
+.loading-text,
+.error-text {
+  padding: 32px;
+  font-size: 16px;
+}
