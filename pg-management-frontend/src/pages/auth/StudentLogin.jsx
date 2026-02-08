@@ -9,27 +9,26 @@ const StudentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Email and password are required");
       return;
     }
 
-    axios
-      .post("/students/login", {
+    try {
+      const res = await axios.post("/auth/student/login", {
         email,
         password,
-      })
-      .then((res) => {
-        localStorage.setItem("role", res.data.role);
-        localStorage.setItem("studentId", res.data.studentId);
-
-        navigate(`/student/dashboard/${res.data.studentId}`);
-      })
-      .catch((err) => {
-        console.error(err.response?.data || err.message);
-        alert("Invalid email or password");
       });
+
+      localStorage.setItem("role", res.data.role);
+      localStorage.setItem("studentId", res.data.studentId);
+
+      navigate(`/student/dashboard/${res.data.studentId}`);
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert("Invalid email or password");
+    }
   };
 
   return (
