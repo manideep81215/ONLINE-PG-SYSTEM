@@ -33,7 +33,9 @@ function StudentRegister() {
       confirmPassword,
     } = formData;
 
-    // BASIC FRONTEND VALIDATION
+    // =============================
+    // FRONTEND VALIDATION
+    // =============================
     if (!name || !email || !aadharNumber || !password || !confirmPassword) {
       alert("All fields are required");
       return;
@@ -44,11 +46,20 @@ function StudentRegister() {
       return;
     }
 
+    // Aadhar must be numeric
+    if (isNaN(Number(aadharNumber))) {
+      alert("Aadhar number must be numeric");
+      return;
+    }
+
+    // =============================
+    // API CALL
+    // =============================
     axios
       .post("/students", {
         name: name.trim(),
         email: email.trim(),
-        aadharNumber: Number(aadharNumber),
+        aadharNumber: Number(aadharNumber), // ✅ SAFE NOW
         phone: phone.trim(),
         password: password,
       })
@@ -60,7 +71,7 @@ function StudentRegister() {
         console.error(err.response?.data || err.message);
         alert(
           err.response?.data?.message ||
-            "Registration failed. Please check details."
+            "Registration failed. Email or Aadhar may already exist."
         );
       });
   };
