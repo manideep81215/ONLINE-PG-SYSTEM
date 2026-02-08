@@ -4,14 +4,18 @@ import axios from "../../api/axios";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
-  const { studentId } = useParams();
+  const params = useParams();
+  const storedId = localStorage.getItem("studentId");
+  const studentId = params.studentId || storedId;
+
   const [student, setStudent] = useState(null);
   const [roomNumber, setRoomNumber] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Function to fetch student data
   const fetchStudent = () => {
+    if (!studentId) return;
+
     axios
       .get(`/students/${studentId}`)
       .then((res) => {
@@ -19,132 +23,41 @@ const StudentProfile = () => {
         setRoomNumber(res.data.room?.roomNumber || "");
         setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         setError("Failed to load student");
         setLoading(false);
       });
   };
 
   useEffect(() => {
-    if (!studentId) {
-      setError("Student ID missing");
-      setLoading(false);
-      return;
-    }
     fetchStudent();
   }, [studentId]);
 
-  const getWardenId = () => {
-    const warden = JSON.parse(localStorage.getItem("warden"));
-    return warden?.wardenId;
-  };
-
-  const handleAssignRoom = () => {
-    const wardenId = getWardenId();
-    if (!wardenId) {
-      alert("Warden not logged in");
-      return;
-    }
-    if (!roomNumber) {
-      alert("Enter room number");
-      return;
-    }
-
-    axios
-      .put(`/wardens/${wardenId}/assign-room`, {
-        studentId: Number(studentId),
-        roomNumber: Number(roomNumber),
-      })
-      .then((res) => {
-        alert("Room assigned successfully");
-        // ✅ Refresh student data after assignment
-        fetchStudent();
-      })
-      .catch((err) => {
-        console.error(err.response?.data || err.message);
-        alert(err.response?.data?.message || "Failed to assign room");
-      });
-  };
-
-  const handleDeassignRoom = () => {
-    const wardenId = getWardenId();
-    if (!wardenId) {
-      alert("Warden not logged in");
-      return;
-    }
-
-    axios
-      .put(`/wardens/${wardenId}/deassign-room`, {
-        studentId: Number(studentId),
-      })
-      .then((res) => {
-        alert("Room deassigned successfully");
-        // ✅ Refresh student data after deassignment
-        fetchStudent();
-      })
-      .catch((err) => {
-        console.error(err.response?.data || err.message);
-        alert(err.response?.data?.message || "Failed to deassign room");
-      });
-  };
-
-  if (loading) return <p className="loading-text">Loading...</p>;
+  if (!studentId) return <p>Loading student…</p>;
+  if (loading) return <p>Loading…</p>;
   if (error) return <p className="error-text">{error}</p>;
-  if (!student) return <p className="error-text">Student not found</p>;
 
   return (
     <div className="profile-container">
       <h2>Student Profile</h2>
-      <p className="profile-subtitle">
-        Student details and room assignment
-      </p>
 
-      <div className="profile-card">
-        <div className="profile-row">
-          <span>Name</span>
-          <span>{student.name}</span>
-        </div>
+      <div className="profile-row">
+        <span>Name</span>
+        <span>{student.name}</span>
+      </div>
 
-        <div className="profile-row">
-          <span>Email</span>
-          <span>{student.email}</span>
-        </div>
+      <div className="profile-row">
+        <span>Email</span>
+        <span>{student.email}</span>
+      </div>
 
-        <div className="profile-row">
-          <span>Phone</span>
-          <span>{student.phone || "—"}</span>
-        </div>
-
-        <div className="profile-row">
-          <span>Current Room</span>
-          <span className="room-badge">
-            {student.room ? `Block ${student.room.block} - Room ${student.room.roomNumber}` : "Not assigned"}
-          </span>
-        </div>
-
-        <hr className="profile-divider" />
-
-        <h3>Assign / Change Room</h3>
-        <div className="assign-room">
-          <input
-            type="number"
-            placeholder="Room Number"
-            value={roomNumber}
-            onChange={(e) => setRoomNumber(e.target.value)}
-          />
-          <button onClick={handleAssignRoom}>
-            Assign Room
-          </button>
-          {student.room && (
-            <button
-              className="deassign-btn"
-              onClick={handleDeassignRoom}
-            >
-              Deassign Room
-            </button>
-          )}
-        </div>
+      <div className="profile-row">
+        <span>Room</span>
+        <span>
+          {student.room
+            ? `Block ${student.room.block} - Room ${student.room.roomNumber}`
+            : "Not assigned"}
+        </span>
       </div>
     </div>
   );
