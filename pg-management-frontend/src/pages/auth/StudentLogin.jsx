@@ -16,7 +16,7 @@ const StudentLogin = () => {
     }
 
     try {
-      const res = await axios.post("/auth/student/login", {
+      const res = await axios.post("/students/login", {
         email,
         password,
       });
