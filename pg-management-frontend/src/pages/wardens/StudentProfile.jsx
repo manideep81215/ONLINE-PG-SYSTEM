@@ -12,7 +12,7 @@ const StudentProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`/students/${studentId}`)  // ✅ FIXED: Proper parentheses
+      .get(`/students/${studentId}`)  
       .then((res) => {
         setStudent(res.data);
         setRoomNumber(res.data.room?.roomNumber || "");
