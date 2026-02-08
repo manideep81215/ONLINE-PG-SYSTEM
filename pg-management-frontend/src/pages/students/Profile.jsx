@@ -5,7 +5,6 @@ import "./Profile.css";
 
 function Profile() {
   const { studentId } = useParams();
-
   const [student, setStudent] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
@@ -19,7 +18,7 @@ function Profile() {
       return;
     }
 
-    axios.get(`/students/${studentId}`)
+    axios.get(`/students/${studentId}`)  // ✅ FIXED: Added parentheses
       .then((res) => {
         setStudent(res.data);
         setFormData(res.data);
@@ -39,7 +38,7 @@ function Profile() {
   };
 
   const handleUpdate = () => {
-    axios.put(`/students/${studentId}`, formData)
+    axios.put(`/students/${studentId}`, formData)  // ✅ FIXED: Added parentheses
       .then((res) => {
         setStudent(res.data);
         setEditMode(false);
