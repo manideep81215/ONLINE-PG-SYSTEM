@@ -24,8 +24,16 @@ function StudentRegister() {
   };
 
   const handleRegister = () => {
-    const { name, email, aadharNumber, password, confirmPassword } = formData;
+    const {
+      name,
+      email,
+      aadharNumber,
+      phone,
+      password,
+      confirmPassword,
+    } = formData;
 
+    // BASIC FRONTEND VALIDATION
     if (!name || !email || !aadharNumber || !password || !confirmPassword) {
       alert("All fields are required");
       return;
@@ -38,12 +46,11 @@ function StudentRegister() {
 
     axios
       .post("/students", {
-        name: formData.name,
-        email: formData.email,
-        aadharNumber: Number(formData.aadharNumber),
-        phone: formData.phone,
-        password: formData.password, // 🔴 sent once
-        active: true,
+        name: name.trim(),
+        email: email.trim(),
+        aadharNumber: Number(aadharNumber),
+        phone: phone.trim(),
+        password: password,
       })
       .then(() => {
         alert("Student registered successfully");
@@ -51,7 +58,10 @@ function StudentRegister() {
       })
       .catch((err) => {
         console.error(err.response?.data || err.message);
-        alert("Registration failed (email or aadhar may exist)");
+        alert(
+          err.response?.data?.message ||
+            "Registration failed. Please check details."
+        );
       });
   };
 
@@ -70,6 +80,7 @@ function StudentRegister() {
 
         <input
           className="register-input"
+          type="email"
           name="email"
           placeholder="Email"
           value={formData.email}
@@ -78,6 +89,7 @@ function StudentRegister() {
 
         <input
           className="register-input"
+          type="number"
           name="aadharNumber"
           placeholder="Aadhar Number"
           value={formData.aadharNumber}
